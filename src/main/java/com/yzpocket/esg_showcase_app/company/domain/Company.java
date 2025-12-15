@@ -20,7 +20,7 @@ public class Company extends TimeStamped {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String companyname;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -31,13 +31,13 @@ public class Company extends TimeStamped {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<File> files = new ArrayList<>();
 
-    public Company(String name, String description) {
-        this.name = name;
+    public Company(String companyname, String description) {
+        this.companyname = companyname;
         this.description = description;
     }
 
-    public void update(String name, String description) {
-        this.name = name;
+    public void update(String companyname, String description) {
+        this.companyname = companyname;
         this.description = description;
     }
 }
