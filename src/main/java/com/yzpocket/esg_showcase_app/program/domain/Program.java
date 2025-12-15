@@ -1,4 +1,4 @@
-package com.yzpocket.esg_showcase_app.exhibition.domain;
+package com.yzpocket.esg_showcase_app.program.domain;
 
 import com.yzpocket.esg_showcase_app.common.domain.TimeStamped;
 import com.yzpocket.esg_showcase_app.generation.domain.Generation;
@@ -12,9 +12,9 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@Table(name = "exhibition")
+@Table(name = "program")
 @Entity
-public class Exhibition extends TimeStamped {
+public class Program extends TimeStamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,20 +27,20 @@ public class Exhibition extends TimeStamped {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private ExhibitionStatus status;
+    private ProgramStatus status;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "generation_id", unique = true, nullable = false)
     private Generation generation;
 
-    @OneToMany(mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "program", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Production> productions =  new ArrayList<>();
 
-    public Exhibition(String title, String description, Generation generation) {
+    public Program(String title, String description, Generation generation) {
         this.title = title;
         this.description = description;
         this.generation = generation;
-        this.status = ExhibitionStatus.PREPARING;
+        this.status = ProgramStatus.PREPARING;
     }
 
     public void update(String title, String description) {

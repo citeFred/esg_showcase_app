@@ -1,7 +1,7 @@
 package com.yzpocket.esg_showcase_app.generation.domain;
 
 import com.yzpocket.esg_showcase_app.common.domain.TimeStamped;
-import com.yzpocket.esg_showcase_app.exhibition.domain.Exhibition;
+import com.yzpocket.esg_showcase_app.program.domain.Program;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +22,7 @@ public class Generation extends TimeStamped {
     private int year;
 
     @OneToOne(mappedBy = "generation", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Exhibition exhibition;
+    private Program program;
 
     public Generation(String name, int year) {
         this.name = name;

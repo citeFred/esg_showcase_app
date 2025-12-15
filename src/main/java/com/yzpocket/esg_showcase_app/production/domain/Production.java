@@ -2,7 +2,7 @@ package com.yzpocket.esg_showcase_app.production.domain;
 
 import com.yzpocket.esg_showcase_app.common.domain.TimeStamped;
 import com.yzpocket.esg_showcase_app.company.domain.Company;
-import com.yzpocket.esg_showcase_app.exhibition.domain.Exhibition;
+import com.yzpocket.esg_showcase_app.program.domain.Program;
 import com.yzpocket.esg_showcase_app.file.domain.File;
 import com.yzpocket.esg_showcase_app.team.domain.Team;
 import jakarta.persistence.*;
@@ -49,13 +49,13 @@ public class Production extends TimeStamped {
     private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exhibition_id", nullable = false)
-    private Exhibition exhibition;
+    @JoinColumn(name = "program_id", nullable = false)
+    private Program program;
 
     @OneToMany(mappedBy = "production", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<File> files = new ArrayList<>();
 
-    public Production(String title, String summary, String description, String promoUrl, String githubUrl, Team team, Company company, Exhibition exhibition) {
+    public Production(String title, String summary, String description, String promoUrl, String githubUrl, Team team, Company company, Program program) {
         this.title = title;
         this.summary = summary;
         this.description = description;
@@ -64,7 +64,7 @@ public class Production extends TimeStamped {
         this.githubUrl = githubUrl;
         this.team = team;
         this.company = company;
-        this.exhibition = exhibition;
+        this.program = program;
     }
 
     public void update(String title, String summary, String description, String promoUrl, String githubUrl) {
