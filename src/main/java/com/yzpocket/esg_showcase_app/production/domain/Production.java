@@ -23,7 +23,7 @@ public class Production extends TimeStamped {
     private Long id;
 
     @Column(nullable = false)
-    private String title;
+    private String productionname;
 
     @Column
     private String summary;
@@ -60,8 +60,8 @@ public class Production extends TimeStamped {
     @OneToMany(mappedBy = "production", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<File> files = new ArrayList<>();
 
-    public Production(String title, String summary, String description, String mainUrl, String subUrl, Team team, Company company, Mentor mentor, Program program) {
-        this.title = title;
+    public Production(String productionname, String summary, String description, String mainUrl, String subUrl, Team team, Company company, Mentor mentor, Program program) {
+        this.productionname = productionname;
         this.summary = summary;
         this.description = description;
         this.status = ProductionStatus.DRAFT;
@@ -73,8 +73,8 @@ public class Production extends TimeStamped {
         this.program = program;
     }
 
-    public void update(String title, String summary, String description, String mainUrl, String subUrl) {
-        this.title = title;
+    public void update(String productionname, String summary, String description, String mainUrl, String subUrl) {
+        this.productionname = productionname;
         this.summary = summary;
         this.description = description;
         this.mainUrl = mainUrl;

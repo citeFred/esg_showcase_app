@@ -3,6 +3,7 @@ package com.yzpocket.esg_showcase_app.team.domain;
 import com.yzpocket.esg_showcase_app.auth.domain.User;
 import com.yzpocket.esg_showcase_app.common.domain.TimeStamped;
 import com.yzpocket.esg_showcase_app.file.domain.File;
+import com.yzpocket.esg_showcase_app.generation.domain.Generation;
 import com.yzpocket.esg_showcase_app.production.domain.Production;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,21 +22,22 @@ public class Team extends TimeStamped {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String name;
+    private String teamname;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private ApprovalStatus status;
+    private TeamStatus teamStatus;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "generation_id", nullable = false)
+    private Generation generation;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "leader_user_id", nullable = false)
     private User leader;
-
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TeamRegistration> teamRegistrations = new ArrayList<>();
 
     @OneToOne(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private Production production;
@@ -44,22 +46,22 @@ public class Team extends TimeStamped {
     private List<File> files = new ArrayList<>();
 
 
-    public Team(String name, String description) {
-        this.name = name;
+    public Team(String teamname, String description) {
+        this.teamname = teamname;
         this.description = description;
-        this.status = ApprovalStatus.PENDING;
+        this.teamStatus = TeamStatus.PENDING;
     }
 
-    public void update(String name, String description) {
-        this.name = name;
+    public void update(String teamname, String description) {
+        this.teamname = teamname;
         this.description = description;
     }
 
     public void approve() {
-        this.status = ApprovalStatus.APPROVED;
+        this.teamStatus = TeamStatus.APPROVED;
     }
 
     public void reject() {
-        this.status = ApprovalStatus.REJECTED;
+        this.teamStatus = TeamStatus.REJECTED;
     }
 }

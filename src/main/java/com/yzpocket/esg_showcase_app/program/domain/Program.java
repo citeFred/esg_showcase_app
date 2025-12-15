@@ -2,7 +2,6 @@ package com.yzpocket.esg_showcase_app.program.domain;
 
 import com.yzpocket.esg_showcase_app.common.domain.TimeStamped;
 import com.yzpocket.esg_showcase_app.generation.domain.Generation;
-import com.yzpocket.esg_showcase_app.production.domain.Production;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,31 +19,32 @@ public class Program extends TimeStamped {
     private Long id;
 
     @Column(nullable = false)
-    private String title;
+    private String programname;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private ProgramStatus status;
+    private int year;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "generation_id", unique = true, nullable = false)
-    private Generation generation;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ProgramStatus programStatus;
 
     @OneToMany(mappedBy = "program", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Production> productions =  new ArrayList<>();
+    private List<Generation> generations = new ArrayList<>();
 
-    public Program(String title, String description, Generation generation) {
-        this.title = title;
+    public Program(String programname, String description, int year, ProgramStatus programStatus) {
+        this.programname = programname;
         this.description = description;
-        this.generation = generation;
-        this.status = ProgramStatus.PREPARING;
+        this.year = year;
+        this.programStatus = ProgramStatus.PREPARING;
     }
 
-    public void update(String title, String description) {
-        this.title = title;
+    public void update(String programname, String description, int year, ProgramStatus programStatus) {
+        this.programname = programname;
         this.description = description;
+        this.year = year;
+        this.programStatus = programStatus;
     }
 }

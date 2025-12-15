@@ -2,9 +2,13 @@ package com.yzpocket.esg_showcase_app.generation.domain;
 
 import com.yzpocket.esg_showcase_app.common.domain.TimeStamped;
 import com.yzpocket.esg_showcase_app.program.domain.Program;
+import com.yzpocket.esg_showcase_app.team.domain.Team;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -16,21 +20,21 @@ public class Generation extends TimeStamped {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String genname;
 
-    @Column(nullable = false)
-    private int year;
-
-    @OneToOne(mappedBy = "generation", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "program_id", nullable = false)
     private Program program;
 
-    public Generation(String name, int year) {
-        this.name = name;
-        this.year = year;
+    @OneToMany(mappedBy = "generation", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Team> teams = new ArrayList<>();
+
+    public Generation(String genname, Program program) {
+        this.genname = genname;
+        this.program = program;
     }
 
-    public void update(String name, int year) {
-        this.name = name;
-        this.year = year;
+    public void update(String genname) {
+        this.genname = genname;
     }
 }

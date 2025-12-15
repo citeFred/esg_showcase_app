@@ -20,7 +20,7 @@ public class Mentor extends TimeStamped {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String mentorname;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -31,13 +31,13 @@ public class Mentor extends TimeStamped {
     @OneToMany(mappedBy = "mentor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<File> files = new ArrayList<>();
 
-    public Mentor(String name, String description) {
-        this.name = name;
+    public Mentor(String mentorname, String description) {
+        this.mentorname = mentorname;
         this.description = description;
     }
 
-    public void update(String name, String description) {
-        this.name = name;
+    public void update(String mentorname, String description) {
+        this.mentorname = mentorname;
         this.description = description;
     }
 }

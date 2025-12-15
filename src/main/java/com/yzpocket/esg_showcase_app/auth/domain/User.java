@@ -1,7 +1,6 @@
 package com.yzpocket.esg_showcase_app.auth.domain;
 
 import com.yzpocket.esg_showcase_app.common.domain.TimeStamped;
-import com.yzpocket.esg_showcase_app.team.domain.TeamRegistration;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,8 +33,8 @@ public class User extends TimeStamped {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TeamRegistration> teamRegistrations = new ArrayList<>();
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<TeamRegistration> teamRegistrations = new ArrayList<>();
 
     public User(String username, String nickname, String password, String email, UserRole userRole) {
         this.username = username;
