@@ -2,6 +2,7 @@ package com.yzpocket.esg_showcase_app.production.domain;
 
 import com.yzpocket.esg_showcase_app.common.domain.TimeStamped;
 import com.yzpocket.esg_showcase_app.company.domain.Company;
+import com.yzpocket.esg_showcase_app.mentor.domain.Mentor;
 import com.yzpocket.esg_showcase_app.program.domain.Program;
 import com.yzpocket.esg_showcase_app.file.domain.File;
 import com.yzpocket.esg_showcase_app.team.domain.Team;
@@ -35,10 +36,10 @@ public class Production extends TimeStamped {
     private ProductionStatus status;
 
     @Column
-    private String promoUrl;
+    private String mainUrl;
 
     @Column
-    private String githubUrl;
+    private String subUrl;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id", unique = true, nullable = false)
@@ -49,29 +50,34 @@ public class Production extends TimeStamped {
     private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mentor_id")
+    private Mentor mentor;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "program_id", nullable = false)
     private Program program;
 
     @OneToMany(mappedBy = "production", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<File> files = new ArrayList<>();
 
-    public Production(String title, String summary, String description, String promoUrl, String githubUrl, Team team, Company company, Program program) {
+    public Production(String title, String summary, String description, String mainUrl, String subUrl, Team team, Company company, Mentor mentor, Program program) {
         this.title = title;
         this.summary = summary;
         this.description = description;
         this.status = ProductionStatus.DRAFT;
-        this.promoUrl = promoUrl;
-        this.githubUrl = githubUrl;
+        this.mainUrl = mainUrl;
+        this.subUrl = subUrl;
         this.team = team;
         this.company = company;
+        this.mentor = mentor;
         this.program = program;
     }
 
-    public void update(String title, String summary, String description, String promoUrl, String githubUrl) {
+    public void update(String title, String summary, String description, String mainUrl, String subUrl) {
         this.title = title;
         this.summary = summary;
         this.description = description;
-        this.promoUrl = promoUrl;
-        this.githubUrl = githubUrl;
+        this.mainUrl = mainUrl;
+        this.subUrl = subUrl;
     }
 }

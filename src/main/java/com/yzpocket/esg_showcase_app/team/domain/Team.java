@@ -44,10 +44,9 @@ public class Team extends TimeStamped {
     private List<File> files = new ArrayList<>();
 
 
-    public Team(String name, String description, User leader) {
+    public Team(String name, String description) {
         this.name = name;
         this.description = description;
-        this.leader = leader;
         this.status = ApprovalStatus.PENDING;
     }
 

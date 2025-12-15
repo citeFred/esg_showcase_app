@@ -2,7 +2,9 @@ package com.yzpocket.esg_showcase_app.file.domain;
 
 import com.yzpocket.esg_showcase_app.common.domain.TimeStamped;
 import com.yzpocket.esg_showcase_app.company.domain.Company;
+import com.yzpocket.esg_showcase_app.mentor.domain.Mentor;
 import com.yzpocket.esg_showcase_app.production.domain.Production;
+//import com.yzpocket.esg_showcase_app.team.domain.Team;
 import com.yzpocket.esg_showcase_app.team.domain.Team;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -42,10 +44,14 @@ public class File extends TimeStamped {
     private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mentor_id")
+    private Mentor mentor;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
 
-    public File(String originalFileName, String storedFileName, String path, Integer displayOrder, FileType fileType, Production production, Company company, Team team) {
+    public File(String originalFileName, String storedFileName, String path, Integer displayOrder, FileType fileType, Production production, Company company, Mentor mentor, Team team) {
         this.originalFileName = originalFileName;
         this.storedFileName = storedFileName;
         this.path = path;
@@ -54,5 +60,6 @@ public class File extends TimeStamped {
         this.production = production;
         this.company = company;
         this.team = team;
+        this.mentor = mentor;
     }
 }
