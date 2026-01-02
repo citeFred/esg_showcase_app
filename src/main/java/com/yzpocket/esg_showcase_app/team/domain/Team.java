@@ -22,7 +22,7 @@ public class Team extends TimeStamped {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String teamname;
+    private String name;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -46,14 +46,14 @@ public class Team extends TimeStamped {
     private List<File> files = new ArrayList<>();
 
 
-    public Team(String teamname, String description) {
-        this.teamname = teamname;
+    public Team(String name, String description) {
+        this.name = name;
         this.description = description;
         this.teamStatus = TeamStatus.PENDING;
     }
 
-    public void update(String teamname, String description) {
-        this.teamname = teamname;
+    public void update(String name, String description) {
+        this.name = name;
         this.description = description;
     }
 

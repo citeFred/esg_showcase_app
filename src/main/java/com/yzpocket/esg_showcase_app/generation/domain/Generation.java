@@ -20,7 +20,7 @@ public class Generation extends TimeStamped {
     private Long id;
 
     @Column(nullable = false)
-    private String genname;
+    private String title;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "program_id", nullable = false)
@@ -29,12 +29,12 @@ public class Generation extends TimeStamped {
     @OneToMany(mappedBy = "generation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Team> teams = new ArrayList<>();
 
-    public Generation(String genname, Program program) {
-        this.genname = genname;
+    public Generation(String title, Program program) {
+        this.title = title;
         this.program = program;
     }
 
-    public void update(String genname) {
-        this.genname = genname;
+    public void update(String title) {
+        this.title = title;
     }
 }

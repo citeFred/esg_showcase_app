@@ -19,7 +19,7 @@ public class Program extends TimeStamped {
     private Long id;
 
     @Column(nullable = false)
-    private String programname;
+    private String title;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -34,15 +34,15 @@ public class Program extends TimeStamped {
     @OneToMany(mappedBy = "program", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Generation> generations = new ArrayList<>();
 
-    public Program(String programname, String description, int year, ProgramStatus programStatus) {
-        this.programname = programname;
+    public Program(String title, String description, int year, ProgramStatus programStatus) {
+        this.title = title;
         this.description = description;
         this.year = year;
         this.programStatus = ProgramStatus.PREPARING;
     }
 
-    public void update(String programname, String description, int year, ProgramStatus programStatus) {
-        this.programname = programname;
+    public void update(String title, String description, int year, ProgramStatus programStatus) {
+        this.title = title;
         this.description = description;
         this.year = year;
         this.programStatus = programStatus;
