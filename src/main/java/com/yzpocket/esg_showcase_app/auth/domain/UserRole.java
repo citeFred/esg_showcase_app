@@ -9,6 +9,9 @@ import org.springframework.security.core.GrantedAuthority;
 public enum UserRole implements GrantedAuthority {
     ROLE_USER("ROLE_USER", "일반 사용자"),
     ROLE_ADMIN("ROLE_ADMIN", "관리자"),
+    ROLE_MENTOR("ROLE_MENTOR", "멘토"),
+    ROLE_TUTOR("ROLE_TUTOR", "교강사"),
+    ROLE_BIZ("ROLE_BIZ", "기업담당자"),
     ROLE_GUEST("ROLE_GUEST", "게스트");
 
     private final String authority;

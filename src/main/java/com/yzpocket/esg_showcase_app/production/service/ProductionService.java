@@ -5,8 +5,6 @@ import com.yzpocket.esg_showcase_app.auth.domain.User;
 import com.yzpocket.esg_showcase_app.auth.domain.UserRole;
 import com.yzpocket.esg_showcase_app.company.domain.Company;
 import com.yzpocket.esg_showcase_app.company.repository.CompanyRepository;
-import com.yzpocket.esg_showcase_app.mentor.domain.Mentor;
-import com.yzpocket.esg_showcase_app.mentor.repository.MentorRepository;
 import com.yzpocket.esg_showcase_app.production.domain.Production;
 import com.yzpocket.esg_showcase_app.production.dto.ProductionRequestDto;
 import com.yzpocket.esg_showcase_app.production.dto.ProductionResponseDto;
@@ -33,7 +31,6 @@ public class ProductionService {
     private final TeamRepository teamRepository;
     private final ProgramRepository programRepository;
     private final CompanyRepository companyRepository;
-    private final MentorRepository mentorRepository;
 
     @Transactional
     public ProductionResponseDto createProduction(PrincipalDetails principalDetails, ProductionRequestDto productionRequestDto) {
@@ -44,7 +41,6 @@ public class ProductionService {
         Program foundProgram = getValidProgram(productionRequestDto.getProgramId());
         Team foundTeam = getValidTeam(productionRequestDto.getTeamId());
         Company foundCompany = getValidCompany(productionRequestDto.getCompanyId());
-        Mentor foundMentor = getValidMentor(productionRequestDto.getMentorId());
 
         // Production 객체 생성
         Production production = new Production(
@@ -55,7 +51,6 @@ public class ProductionService {
                 productionRequestDto.getSubUrl(),
                 foundTeam,
                 foundCompany,
-                foundMentor,
                 foundProgram
         );
 
@@ -132,13 +127,5 @@ public class ProductionService {
         }
         return companyRepository.findById(companyId)
                 .orElseThrow(() -> new EntityNotFoundException("해당 기업을 찾을 수 없습니다. ID: " + companyId));
-    }
-
-    private Mentor getValidMentor(Long mentorId) {
-        if (mentorId == null) {
-            return null;
-        }
-        return mentorRepository.findById(mentorId)
-                .orElseThrow(() -> new EntityNotFoundException("해당 멘토를 찾을 수 없습니다. ID: " + mentorId));
     }
 }

@@ -5,9 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Getter
 @NoArgsConstructor
@@ -32,9 +29,6 @@ public class User extends TimeStamped {
     @Column(name = "user_role", nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
-
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<TeamRegistration> teamRegistrations = new ArrayList<>();
 
     public User(String username, String nickname, String password, String email, UserRole userRole) {
         this.username = username;

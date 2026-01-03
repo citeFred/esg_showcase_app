@@ -29,9 +29,6 @@ public class ProductionResponseDto {
     private Long companyId;
     private String companyName;
 
-    private Long mentorId;
-    private String mentorName;
-
     private Long programId;
     private String programTitle;
 
@@ -61,18 +58,12 @@ public class ProductionResponseDto {
             this.programTitle = production.getProgram().getTitle();
         }
 
-        // 선택적 연관관계 (Company, Mentor) - Null 체크
         if (production.getCompany() != null) {
             this.companyId = production.getCompany().getId();
             this.companyName = production.getCompany().getName();
         }
 
-        if (production.getMentor() != null) {
-            this.mentorId = production.getMentor().getId();
-            this.mentorName = production.getMentor().getName();
-        }
-
-        // 파일 리스트 변환 (Null 체크 및 FileResponseDto 매핑)
+        // 파일 리스트 변환
         if (production.getFiles() != null) {
             this.files = production.getFiles().stream()
                     .map(FileResponseDto::new)

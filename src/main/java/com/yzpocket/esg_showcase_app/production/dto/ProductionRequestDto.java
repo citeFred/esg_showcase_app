@@ -15,5 +15,4 @@ public class ProductionRequestDto {
     private Long teamId;
     private Long programId;
     private Long companyId;
-    private Long mentorId;
 }
