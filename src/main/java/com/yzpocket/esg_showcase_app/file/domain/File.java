@@ -26,9 +26,6 @@ public class File extends TimeStamped {
     @Column(nullable = false)
     private String filePath;
 
-    @Column
-    private Integer displayOrder;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private FileType fileType;
@@ -37,22 +34,11 @@ public class File extends TimeStamped {
     @JoinColumn(name = "production_id")
     private Production production;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
-    private Company company;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id")
-    private Team team;
-
-    public File(String originalFileName, String storedFileName, String filePath, Integer displayOrder, FileType fileType, Production production, Company company, Team team) {
+    public File(String originalFileName, String storedFileName, String filePath, FileType fileType, Production production) {
         this.originalFileName = originalFileName;
         this.storedFileName = storedFileName;
         this.filePath = filePath;
-        this.displayOrder = displayOrder;
         this.fileType = fileType;
         this.production = production;
-        this.company = company;
-        this.team = team;
     }
 }

@@ -28,9 +28,6 @@ public class Company extends TimeStamped {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Production> productions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<File> files = new ArrayList<>();
-
     public Company(String name, String description) {
         this.name = name;
         this.description = description;

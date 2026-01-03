@@ -42,10 +42,6 @@ public class Team extends TimeStamped {
     @OneToOne(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private Production production;
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<File> files = new ArrayList<>();
-
-
     public Team(String name, String description) {
         this.name = name;
         this.description = description;
