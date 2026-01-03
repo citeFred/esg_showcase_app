@@ -38,7 +38,7 @@ public class ProductionService {
     @Transactional
     public ProductionResponseDto createProduction(PrincipalDetails principalDetails, ProductionRequestDto productionRequestDto) {
         User logginedUser = principalDetails.getUser();
-         validateAdmin(logginedUser);
+        validateAdmin(logginedUser);
 
         // 각 엔티티 조회 및 유효성 검사 메서드 호출
         Program foundProgram = getValidProgram(productionRequestDto.getProgramId());
@@ -111,18 +111,24 @@ public class ProductionService {
     }
 
     private Program getValidProgram(Long programId) {
+        if (programId == null) {
+            return null;
+        }
         return programRepository.findById(programId)
                 .orElseThrow(() -> new EntityNotFoundException("해당 프로그램을 찾을 수 없습니다. ID: " + programId));
     }
 
     private Team getValidTeam(Long teamId) {
+        if (teamId == null) {
+            return null;
+        }
         return teamRepository.findById(teamId)
                 .orElseThrow(() -> new EntityNotFoundException("해당 팀을 찾을 수 없습니다. ID: " + teamId));
     }
 
     private Company getValidCompany(Long companyId) {
         if (companyId == null) {
-            return null; // 기업 정보는 선택사항일 수 있음
+            return null;
         }
         return companyRepository.findById(companyId)
                 .orElseThrow(() -> new EntityNotFoundException("해당 기업을 찾을 수 없습니다. ID: " + companyId));
@@ -130,7 +136,7 @@ public class ProductionService {
 
     private Mentor getValidMentor(Long mentorId) {
         if (mentorId == null) {
-            return null; // 멘토 정보는 선택사항일 수 있음
+            return null;
         }
         return mentorRepository.findById(mentorId)
                 .orElseThrow(() -> new EntityNotFoundException("해당 멘토를 찾을 수 없습니다. ID: " + mentorId));

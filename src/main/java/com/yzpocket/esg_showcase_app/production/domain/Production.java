@@ -42,7 +42,7 @@ public class Production extends TimeStamped {
     private String subUrl;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id", unique = true, nullable = false)
+    @JoinColumn(name = "team_id", unique = true)
     private Team team;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -54,7 +54,7 @@ public class Production extends TimeStamped {
     private Mentor mentor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "program_id", nullable = false)
+    @JoinColumn(name = "program_id")
     private Program program;
 
     @OneToMany(mappedBy = "production", cascade = CascadeType.ALL, orphanRemoval = true)
