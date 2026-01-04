@@ -28,7 +28,8 @@ public class GenerationService {
 
     @Transactional
     public GenerationResponseDto createGeneration(PrincipalDetails principalDetails, GenerationRequestDto requestDto) {
-        validateAdmin(principalDetails.getUser());
+        User logginedUser = principalDetails.getUser();
+        validateAdmin(logginedUser);
 
         Program program = findProgramById(requestDto.getProgramId());
         Generation generation = new Generation(requestDto.getTitle(), program);
@@ -50,7 +51,8 @@ public class GenerationService {
 
     @Transactional
     public GenerationResponseDto updateGeneration(Long generationId, GenerationRequestDto requestDto, PrincipalDetails principalDetails) {
-        validateAdmin(principalDetails.getUser());
+        User logginedUser = principalDetails.getUser();
+        validateAdmin(logginedUser);
         Generation generation = findGenerationById(generationId);
 
         generation.update(requestDto.getTitle());
@@ -61,7 +63,9 @@ public class GenerationService {
 
     @Transactional
     public void deleteGeneration(Long generationId, PrincipalDetails principalDetails) {
-        validateAdmin(principalDetails.getUser());
+        User logginedUser = principalDetails.getUser();
+        validateAdmin(logginedUser);
+
         Generation generation = findGenerationById(generationId);
         generationRepository.delete(generation);
     }
