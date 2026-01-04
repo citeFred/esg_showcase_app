@@ -9,9 +9,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @NoArgsConstructor
 @Entity
@@ -45,6 +42,14 @@ public class Team extends TimeStamped {
     public Team(String name, String description) {
         this.name = name;
         this.description = description;
+        this.teamStatus = TeamStatus.PENDING;
+    }
+    
+    public Team(String name, String description, Generation generation, User leader) {
+        this.name = name;
+        this.description = description;
+        this.generation = generation;
+        this.leader = leader;
         this.teamStatus = TeamStatus.PENDING;
     }
 
