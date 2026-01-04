@@ -70,8 +70,9 @@ public class ProductionService {
     }
 
     @Transactional
-    public ProductionResponseDto updateProduction(Long productionId, ProductionRequestDto productionRequestDto, User user) {
-        validateAdmin(user); // 관리자 권한 확인
+    public ProductionResponseDto updateProduction(Long productionId, ProductionRequestDto productionRequestDto, PrincipalDetails principalDetails) {
+        User logginedUser = principalDetails.getUser();
+        validateAdmin(logginedUser);
         Production production = findProductionById(productionId);
 
         // Production 정보 업데이트
@@ -86,8 +87,10 @@ public class ProductionService {
     }
 
     @Transactional
-    public void deleteProduction(Long productionId, User user) {
-        validateAdmin(user); // 관리자 권한 확인
+    public void deleteProduction(Long productionId, PrincipalDetails principalDetails) {
+        User logginedUser = principalDetails.getUser();
+        validateAdmin(logginedUser);
+
         Production production = findProductionById(productionId);
         productionRepository.delete(production);
     }

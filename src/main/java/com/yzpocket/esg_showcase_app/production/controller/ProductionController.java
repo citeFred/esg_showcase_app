@@ -48,7 +48,7 @@ public class ProductionController {
             @PathVariable Long productionId,
             @RequestBody ProductionRequestDto productionRequestDto,
             @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        ProductionResponseDto responseDto = productionService.updateProduction(productionId, productionRequestDto, principalDetails.getUser());
+        ProductionResponseDto responseDto = productionService.updateProduction(productionId, productionRequestDto, principalDetails);
         return ResponseEntity.ok(responseDto);
     }
 
@@ -57,7 +57,7 @@ public class ProductionController {
     public ResponseEntity<Void> deleteProduction(
             @PathVariable Long productionId,
             @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        productionService.deleteProduction(productionId, principalDetails.getUser());
+        productionService.deleteProduction(productionId, principalDetails);
         return ResponseEntity.noContent().build();
     }
 }
